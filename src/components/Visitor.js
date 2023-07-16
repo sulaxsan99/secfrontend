@@ -65,7 +65,7 @@ const [visitor,setvisitor]=useState([])
             console.log(formData)
 
 
-            const response = await axios.post('http://localhost:5000/api/v1/create', formData);
+            const response = await axios.post('http://localhost:5000/api/v2/create', formData);
             if (response.data.success) {
                 console.log('Data saved successfully.');
                 toast.success(response.data  , {autoClose:3000})

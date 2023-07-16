@@ -1,13 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useNavigate, Link } from 'react-router-dom';
 function NavBar() {
-
+    const navigate = useNavigate()
     const showBox = () => (
         <div style={{ width: '100px', height: "100px" }}>
             sdvfvf
         </div>
     )
+
+    const logout=()=>{
+        localStorage.clear();
+        navigate('/')
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -26,7 +32,7 @@ function NavBar() {
 
                                 <Dropdown.Menu>
                                     <Dropdown.Item href="#/action-1">profile</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">Logout</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2" onClick={logout} >Logout</Dropdown.Item>
                                     <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>

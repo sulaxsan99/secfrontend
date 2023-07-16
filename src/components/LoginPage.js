@@ -47,13 +47,14 @@ const LoginPage = () => {
             axios.post('http://localhost:5000/v1/login', values).then((res) => {
 
               console.log(res.data)
-              alert(res.data)
+              alert("Login successgully")
               toast.success(res.data, { autoClose: 3000 })
               localStorage.setItem("valid", res.data);
               navigate('/Dashboard')
 
             }).catch((err) => {
               console.log(err.response.data)
+              alert(err.response.data)
               toast.warning(err.response.data, { autoClose: 3000 })
             })
           }}
