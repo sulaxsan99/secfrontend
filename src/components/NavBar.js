@@ -14,6 +14,7 @@ function NavBar() {
         localStorage.clear();
         navigate('/')
     }
+  
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -31,7 +32,7 @@ function NavBar() {
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">profile</Dropdown.Item>
+                                    <Dropdown.Item   onClick={()=>navigate('/Profile')}>profile</Dropdown.Item>
                                     <Dropdown.Item href="#/action-2" onClick={logout} >Logout</Dropdown.Item>
                                     <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                                 </Dropdown.Menu>

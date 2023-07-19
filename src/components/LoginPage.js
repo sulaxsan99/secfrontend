@@ -50,6 +50,8 @@ const LoginPage = () => {
               alert("Login successgully")
               toast.success(res.data, { autoClose: 3000 })
               localStorage.setItem("valid", res.data);
+              localStorage.setItem("email", values.email);
+
               navigate('/Dashboard')
 
             }).catch((err) => {

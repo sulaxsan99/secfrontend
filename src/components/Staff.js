@@ -103,6 +103,23 @@ const Staff = () => {
         useEffect(()=>{
             getallstudent();
         },[])
+
+        async function DeleteData(id) {
+            try {
+                await axios.delete(`http://localhost:5000/api/v3/delete/${id}`)
+                    .then((response) => {
+                        if (response.status){
+                            alert(response.data.message)
+                            console.log(response.data)
+                        }
+    
+                    });
+    
+            } catch (error) {
+                console.log(error)
+                //    alert()
+            }
+        }
   return (
     <div>
             <div className="container">
@@ -264,6 +281,8 @@ const Staff = () => {
                                 <th>licenceNo</th>
                                 <th>Check in</th>
                                 <th>Check out</th>
+                                <th></th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -281,6 +300,8 @@ const Staff = () => {
             <td>{item.licenceNo}</td>
             <td>{item.checkIn}</td>
             <td>{item.checkout}</td>
+            <td> <button onClick={() => DeleteData(item._id)}>Delete</button> </td>
+
            
           </tr>
         ))

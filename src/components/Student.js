@@ -1,4 +1,4 @@
-import React ,{useState,useEffect}from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import * as Yup from 'yup';
@@ -9,26 +9,26 @@ import { Formik, Field } from 'formik';
 const validationSchema = Yup.object().shape({
     SID: Yup.string().required('SID is required'),
     firstName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required(' first name requied'),
-  lastName: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required(' last name required'),
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required(' first name requied'),
+    lastName: Yup.string()
+        .min(2, 'Too Short!')
+        .max(50, 'Too Long!')
+        .required(' last name required'),
     nic: Yup.string()
-    .required("nic required")
-    .length(10)
-    .matches(/^\d{9}[vVxX]$/, 'Invalid NIC format'),
-    vehicleType:Yup.string()
-    .required("Vehicle type is required "),
+        .required("nic required")
+        .length(10)
+        .matches(/^\d{9}[vVxX]$/, 'Invalid NIC format'),
+    vehicleType: Yup.string()
+        .required("Vehicle type is required "),
     licenceNo: Yup.string()
-    .required("licenceNo is required "),
-        checkIn:Yup.string()
+        .required("licenceNo is required "),
+    checkIn: Yup.string()
         .required("checkIn detail is required "),
-        checkout: Yup.string()
+    checkout: Yup.string()
         .required("checkout detail is required "),
-       
+
 });
 const Student = () => {
     const [show, setShow] = useState(false);
@@ -43,7 +43,7 @@ const Student = () => {
         checkout: '',
     });
     const [errors, setErrors] = useState([]);
-    const [student,setstudent]=useState([]);
+    const [student, setstudent] = useState([]);
 
     const handleClose = () => {
         setShow(false)
@@ -60,12 +60,10 @@ const Student = () => {
         try {
             await validationSchema.validate(formData, { abortEarly: false });
             console.log(formData)
-
-
             const response = await axios.post('http://localhost:5000/api/v2/create', formData);
             if (response.data.success) {
-                console.log('Data saved successfully.');
-                toast.success(response.data  , {autoClose:3000})
+              alert('Data saved successfully.');
+                toast.success(response.data, { autoClose: 3000 })
                 handleClose();
                 setFormData("")
                 getallstudent()
@@ -85,25 +83,42 @@ const Student = () => {
             }
         }
     };
-    const getallstudent=async()=>{
+    const getallstudent = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/v2/allstudents');
-            if(!response){
+            if (!response) {
                 console.log("nodata")
-            }else{
+            } else {
                 setstudent(response.data.students)
                 console.log(response.data.students)
-        
+
             }
         } catch (error) {
             console.log(error)
         }
+    }
+    useEffect(() => {
+        getallstudent();
+    }, [])
+
+    async function DeleteData(id) {
+        try {
+            await axios.delete(`http://localhost:5000/api/v2/delete/${id}`)
+                .then((response) => {
+                    if (response.status){
+                        alert(response.data.message)
+                        console.log(response.data)
+                    }
+
+                });
+
+        } catch (error) {
+            console.log(error)
+            //    alert()
         }
-        useEffect(()=>{
-            getallstudent();
-        },[])
-  return (
-    <div>
+    }
+    return (
+        <div>
             <div className="container">
                 <div className="content-area">
                     <h2 className="table-title">Student  Detail</h2> {/* Updated table title */}
@@ -118,7 +133,7 @@ const Student = () => {
                                 <Modal.Title>create new student</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <Form  onSubmit={handleSubmit} >
+                                <Form onSubmit={handleSubmit} >
                                     <Form.Group className="mb-3" controlId="SID">
                                         {/* <Form.Label>Email address</Form.Label> */}
                                         <Form.Control
@@ -234,7 +249,7 @@ const Student = () => {
                                     </Form.Group>
 
 
-                                   
+
                                 </Form>
                             </Modal.Body>
                             <Modal.Footer>
@@ -253,37 +268,37 @@ const Student = () => {
                     <table>
                         <thead>
                             <tr>
-                            <th></th>
+                                <th></th>
                                 <th>student id</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>NIC</th>
-                               
                                 <th>Vehicle Type</th>
                                 <th>licenceNo</th>
                                 <th>Check in</th>
                                 <th>Check out</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {/* Table rows with time schedule data */}
-{
-    student.map((item, index) => (
-          <tr key={index}>
-          <td>{index+1}</td>
-            <td>{item.SID}</td>
-            <td>{item.firstName}</td>
-            <td>{item.lastName}</td>
-            <td>{item.nic}</td>
-          
-            <td>{item.vehicleType}</td>
-            <td>{item.licenceNo}</td>
-            <td>{item.checkIn}</td>
-            <td>{item.checkout}</td>
-           
-          </tr>
-        ))
-}
+                            {
+                                student.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{item.SID}</td>
+                                        <td>{item.firstName}</td>
+                                        <td>{item.lastName}</td>
+                                        <td>{item.nic}</td>
+
+                                        <td>{item.vehicleType}</td>
+                                        <td>{item.licenceNo}</td>
+                                        <td>{item.checkIn}</td>
+                                        <td>{item.checkout}</td>
+                                        <td> <button onClick={() => DeleteData(item._id)}>Delete</button> </td>
+                                    </tr>
+                                ))
+                            }
                             {/* Add more table rows as needed */}
                         </tbody>
                     </table>
@@ -291,7 +306,7 @@ const Student = () => {
             </div>
             <ToastContainer />
         </div>
-  )
+    )
 }
 
 export default Student
