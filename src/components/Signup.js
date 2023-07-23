@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from "primereact/card";
 import { Formik, Form, Field } from 'formik';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import * as Yup from 'yup';
 import axios from 'axios'
@@ -45,7 +45,7 @@ const Signup = () => {
     Address: Yup.string()
       .required('Address is required')
   });
-  
+
   return (
     <div style={{
       display: 'flex',
@@ -63,10 +63,10 @@ const Signup = () => {
         backgroundColor: 'white',
         width: '40%',
         margin: '10%',
-        borderRadius:'20px'
+        borderRadius: '20px'
       }}>
 
-        <div style={{padding:'30px'}}>
+        <div style={{ padding: '30px' }}>
           <h1 style={{ textAlign: 'center' }}>Signup</h1>
           <Formik
             initialValues={{
@@ -85,30 +85,45 @@ const Signup = () => {
               // same shape as initial values
               console.log(values);
               axios.post('http://localhost:5000/v1/register', values).then((res) => {
-               
-                console.log(res.data)
-                toast.success(res.data  , {autoClose:3000})
-                alert(res.data)
-                navigate('/')
-             
+                if (res && res.data) {
+                  console.log(res.data);
+                  toast.success(res.data);
+                  navigate('/');
+                } else {
+                  console.log('Unexpected response:', res);
+                  toast.error('Unexpected response from the server.');
+                }
+                // console.log(res.data)
+                // toast.success(res.data  , {autoClose:3000})
+                // alert(res.data)
+                // navigate('/')
+
               }).catch((err) => {
-                console.log(err.response.data)
-                alert(err.response.data)
+                if (err && err.response && err.response.data) {
+                  const error = err.response.data;
+                  console.log(error);
+                  toast.error(error);
+                } else {
+                  console.log('Error occurred:', err.message);
+                  toast.error('Error occurred while processing the request.');
+                }
+                // console.log(err.response.data)
+                // alert(err.response.data)
               })
             }}
 
           >
-            {({ errors, touched ,resetForm}) => (
+            {({ errors, touched, resetForm }) => (
               <Form style={{ maxWidth: '400px', margin: '0 auto' }}>
                 <div style={{ display: 'flex', marginBottom: '25px' }}>
                   <div style={{ marginRight: '100px' }}>
-                    <Field name="firstName" placeholder="First Name" style={{ width: '100%', padding: '0.5rem',backgroundColor:'#929692' ,fontSize:'18px',border:'none' }} />
+                    <Field name="firstName" placeholder="First Name" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#929692', fontSize: '18px', border: 'none' }} />
                     {errors.firstName && touched.firstName ? (
                       <div>{errors.firstName}</div>
                     ) : null}
                   </div>
                   <div>
-                    <Field name="lastName" placeholder="LastName" style={{ width: '100%', padding: '0.5rem',backgroundColor:'#929692' ,fontSize:'18px',border:'none' }} />
+                    <Field name="lastName" placeholder="LastName" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#929692', fontSize: '18px', border: 'none' }} />
                     {errors.lastName && touched.lastName ? (
                       <div>{errors.lastName}</div>
                     ) : null}
@@ -117,12 +132,12 @@ const Signup = () => {
                 </div>
 
                 <div style={{ marginBottom: '25px' }} >
-                  <Field name="nic" type="nic" placeholder="nic" style={{ width: '100%', padding: '0.5rem',backgroundColor:'#929692' ,fontSize:'18px',border:'none'}} />
+                  <Field name="nic" type="nic" placeholder="nic" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#929692', fontSize: '18px', border: 'none' }} />
                   {errors.nic && touched.nic ? <div>{errors.nic}</div> : null}
                 </div>
 
                 <div style={{ marginBottom: '25px' }} >
-                  <Field name="email" type="email" placeholder="Email" style={{ width: '100%', padding: '0.5rem',backgroundColor:'#929692' ,fontSize:'18px',border:'none' }} />
+                  <Field name="email" type="email" placeholder="Email" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#929692', fontSize: '18px', border: 'none' }} />
                   {errors.email && touched.email ? <div>{errors.email}</div> : null}
                 </div>
 
@@ -143,23 +158,23 @@ const Signup = () => {
 
 
                 <div style={{ marginBottom: '25px' }} >
-                  <Field name="password" type="password" placeholder="password" style={{ width: '100%', padding: '0.5rem',backgroundColor:'#929692' ,fontSize:'18px',border:'none' }} />
+                  <Field name="password" type="password" placeholder="password" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#929692', fontSize: '18px', border: 'none' }} />
                   {errors.password && touched.password ? <div>{errors.password}</div> : null}
                 </div>
-                  <div style={{ marginBottom: '25px' }} >
-                  <Field name="mobilenumber" type="mobilenumber" placeholder="mobilenumber" style={{ width: '100%', padding: '0.5rem' ,backgroundColor:'#929692' ,fontSize:'18px',border:'none'}} />
+                <div style={{ marginBottom: '25px' }} >
+                  <Field name="mobilenumber" type="mobilenumber" placeholder="mobilenumber" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#929692', fontSize: '18px', border: 'none' }} />
                   {errors.mobilenumber && touched.mobilenumber ? <div>{errors.mobilenumber}</div> : null}
                 </div>
                 <div style={{ marginBottom: '25px' }} >
-                  <Field name="Staffid" type="Staffid" placeholder="Staffid" style={{ width: '100%', padding: '0.5rem' ,backgroundColor:'#929692' ,fontSize:'18px',border:'none'}} />
+                  <Field name="Staffid" type="Staffid" placeholder="Staffid" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#929692', fontSize: '18px', border: 'none' }} />
                   {errors.Staffid && touched.Staffid ? <div>{errors.Staffid}</div> : null}
                 </div>
                 <div style={{ marginBottom: '25px' }} >
-                  <Field name="Address" type="Address" placeholder="Address" style={{ width: '100%', padding: '0.5rem' ,backgroundColor:'#929692' ,fontSize:'18px',border:'none'}} />
+                  <Field name="Address" type="Address" placeholder="Address" style={{ width: '100%', padding: '0.5rem', backgroundColor: '#929692', fontSize: '18px', border: 'none' }} />
                   {errors.Address && touched.Address ? <div>{errors.Address}</div> : null}
                 </div>
-                <div style={{textAlign:'center'}}>
-                <button type="submit" onSubmit={onsubmit} style={{width:'200px',height:'40px',border:0,borderRadius:"15px",backgroundColor:'#14b31b',color:'white ',fontSize:'18px'}} >Create Account</button>
+                <div style={{ textAlign: 'center' }}>
+                  <button type="submit" onSubmit={onsubmit} style={{ width: '200px', height: '40px', border: 0, borderRadius: "15px", backgroundColor: '#14b31b', color: 'white ', fontSize: '18px' }} >Create Account</button>
 
                 </div>
               </Form>

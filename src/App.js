@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet,redirect} from "react-router-dom";
 import './App.css';
+import { ToastContainer, toast } from 'react-toastify';
+
 import Dashboard from "./components/Dashboard";
 import LoginPage from "./components/LoginPage";
 import Signup from "./components/Signup";
@@ -46,6 +48,7 @@ function App() {
         <Route path="/Profile" element={<Profile />} />
       </Route>
     </Routes>
+    <ToastContainer />
   </BrowserRouter>
   );
 }
