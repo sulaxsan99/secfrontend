@@ -147,7 +147,7 @@ const Signup = () => {
                   {errors.password && touched.password ? <div>{errors.password}</div> : null}
                 </div>
                   <div style={{ marginBottom: '25px' }} >
-                  <Field name="password" type="mobilenumber" placeholder="mobilenumber" style={{ width: '100%', padding: '0.5rem' ,backgroundColor:'#929692' ,fontSize:'18px',border:'none'}} />
+                  <Field name="mobilenumber" type="mobilenumber" placeholder="mobilenumber" style={{ width: '100%', padding: '0.5rem' ,backgroundColor:'#929692' ,fontSize:'18px',border:'none'}} />
                   {errors.mobilenumber && touched.mobilenumber ? <div>{errors.mobilenumber}</div> : null}
                 </div>
                 <div style={{ marginBottom: '25px' }} >

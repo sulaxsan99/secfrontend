@@ -398,7 +398,9 @@ return (
                                     <td>{item.licenceNo}</td>
                                     <td>{item.checkIn}</td>
                                     <td>{item.checkout}</td>
-                                    <td> <button onClick={() => DeleteData(item._id)}>Delete</button> </td>
+                                    <td> <button onClick={() => DeleteData(item._id)}  style={{border:'none',backgroundColor:'red',color:'white',borderRadius:'10px',padding:"2px",fontSize:'15px',width:'80px',height:"30px",
+                                    
+                                    }} >Delete</button> </td>
                                     <td><button onClick={() => UpdateData(item._id)}>Update</button></td>
 
                                 </tr>

@@ -2,7 +2,7 @@ import React from 'react'
 import Slidebar from './Slidebar';
 
 import NavBar from './NavBar';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route ,useNavigate} from "react-router-dom";
 const Dashboard = () => {
   const headerStyle = {
     backgroundColor: '#3b68bb',
@@ -104,25 +104,27 @@ const Dashboard = () => {
     textOverflow: 'ellipsis',
     fontWeight: 'bold',
   };
+  const navigate = useNavigate()
+ 
   return (
     <>
     <div style={containerStyle} className="container">
       <div style={bodySectionStyle} className="body-section">
         <div style={iconSectionStyle} className="icon-section">
           <button style={iconStyle} className="icon">
-            <img style={iconImgStyle} src="https://icon-library.com/images/schedule-icon-png/schedule-icon-png-26.jpg" alt="Schedule" />
+            <img style={iconImgStyle} onClick={()=>navigate('/Schedule')} src="https://icon-library.com/images/schedule-icon-png/schedule-icon-png-26.jpg" alt="Schedule" />
             <span style={iconTextStyle} className="icon-text">Schedule</span>
           </button>
           <button style={iconStyle} className="icon">
-            <img style={iconImgStyle} src="https://icons.veryicon.com/png/o/miscellaneous/merchant-edition/visitor-5.png" alt="Visitor Details" />
+            <img style={iconImgStyle}  onClick={()=>navigate('/Visitor')} src="https://icons.veryicon.com/png/o/miscellaneous/merchant-edition/visitor-5.png" alt="Visitor Details" />
             <span style={iconTextStyle} className="icon-text">Visitor Details</span>
           </button>
           <button style={iconStyle} className="icon">
-            <img style={iconImgStyle} src="https://cdn-icons-png.flaticon.com/512/3135/3135773.png" alt="Student Details" />
+            <img style={iconImgStyle}  onClick={()=>navigate('/Student')} src="https://cdn-icons-png.flaticon.com/512/3135/3135773.png" alt="Student Details" />
             <span style={iconTextStyle} className="icon-text">Student Details</span>
           </button>
           <button style={iconStyle} className="icon">
-            <img style={iconImgStyle} src="https://cdn-icons-png.flaticon.com/512/484/484619.png" alt="Staff Details" />
+            <img style={iconImgStyle}  onClick={()=>navigate('/Staff')} src="https://cdn-icons-png.flaticon.com/512/484/484619.png" alt="Staff Details" />
             <span style={iconTextStyle} className="icon-text">Staff Details</span>
           </button>
         </div>

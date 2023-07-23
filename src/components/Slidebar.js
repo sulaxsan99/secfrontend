@@ -12,7 +12,7 @@ const Slidebar = () => {
   return (
 
 
-    <div className='slidebar d-flex justify-content-between flex-column bg-dark text-white p-3 ps-3 pe-5 vh-100'>
+    <div className='slidebar d-flex justify-content-between flex-column bg-info text-white p-3 ps-3 pe-5 vh-100'>
       <div>
         <span className='p-3'>
         
